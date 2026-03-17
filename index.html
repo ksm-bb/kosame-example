@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,105 +10,86 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kosame: {
+              bg: '#fffcf5',
+              blue: '#cceaff',
+              bluedark: '#8cc6ff',
+              brown: '#c68a69',
+              browndark: '#9c6242',
+              yellow: '#ffdf73',
+              pink: '#ffd1dc',
+              cream: '#fdf4e1'
+            }
+          },
+          fontFamily: {
+            sans: ['Mali', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    /* --- CORE SETTINGS --- */
-    body {
-      background-color: #010205; /* พื้นหลังด้านนอกสุดให้ดำมืด เพื่อเน้นกรอบมือถือ */
-      font-family: 'Rajdhani', sans-serif;
+    body { 
+      background-color: #fffcf5; 
+      font-family: 'Mali', cursive, sans-serif; 
+      color: #c68a69; 
+      overflow-x: hidden; 
     }
-    .font-orbitron { font-family: 'Orbitron', sans-serif; }
     
-    /* --- UTILITIES --- */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* --- SCI-FI SHAPES --- */
-    .scifi-clip {
-      clip-path: polygon(
-        10px 0, 100% 0, 
-        100% calc(100% - 10px), 
-        calc(100% - 10px) 100%, 
-        0 100%, 0 10px
-      );
-    }
-
-    /* --- BACKGROUND ANIMATIONS --- */
-    .bg-grid-animate {
-      background-image: 
-        linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: gridPulse 4s ease-in-out infinite;
-    }
-    @keyframes gridPulse {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-    }
-
-    .particles {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: radial-gradient(#60a5fa 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.2;
-      animation: particleDrift 20s linear infinite;
-      pointer-events: none;
-    }
-    @keyframes particleDrift {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50px); }
-    }
-
-    /* --- GLITCH EFFECT --- */
-    .glitch-wrapper { position: relative; display: inline-block; }
-    .glitch {
-      position: relative;
-      color: #fff;
-      font-size: 3rem;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-family: 'Orbitron', sans-serif;
-    }
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: #02040a;
-    }
-    .glitch::before {
-      left: 2px; text-shadow: -2px 0 #60a5fa;
-      clip: rect(44px, 450px, 56px, 0);
-      animation: glitch-anim 5s infinite linear alternate-reverse;
-    }
-    .glitch::after {
-      left: -2px; text-shadow: -2px 0 #93c5fd;
-      clip: rect(44px, 450px, 56px, 0);
-      animation: glitch-anim2 1s infinite linear alternate-reverse;
-    }
-    @keyframes glitch-anim {
-      0% { clip: rect(32px, 9999px, 88px, 0); transform: skew(0.6deg); }
-      90% { clip: rect(5px, 9999px, 65px, 0); transform: skew(0.8deg); }
-      100% { clip: rect(76px, 9999px, 7px, 0); transform: skew(0.5deg); }
-    }
-    @keyframes glitch-anim2 {
-      0% { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.3deg); }
-      100% { clip: rect(20px, 9999px, 80px, 0); transform: skew(0.1deg); }
-    }
-
+    @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+    .animate-pop { animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    /* Stripe Pattern Header & Footer */
+    .striped-header-footer {
+      background-image: linear-gradient(-45deg, #cceaff 25%, #e5f4ff 25%, #e5f4ff 50%, #cceaff 50%, #cceaff 75%, #e5f4ff 75%, #e5f4ff 100%);
+      background-size: 40px 40px;
+      animation: moveStripes 2s linear infinite;
+      border-bottom: 4px solid #fdf4e1;
+    }
+    @keyframes moveStripes {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+
+    /* Animation สำหรับดาวกระพริบวิ้งค์ๆ */
+    @keyframes twinkleStar {
+      0%, 100% { opacity: 0.2; transform: scale(0.6); }
+      50% { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 4px rgba(255, 223, 115, 0.8)); }
+    }
+    .star { position: absolute; pointer-events: none; animation: twinkleStar linear infinite; z-index: 0; }
+
+    /* Kosame Card Style */
+    .kosame-card {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      border: 2px solid #cceaff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 0 0 #cceaff;
+      transition: all 0.3s;
+    }
   </style>
 </head>
-<body class="text-slate-200">
-  <div id="root"></div>
+<body class="selection:bg-kosame-yellow/50 selection:text-kosame-browndark">
+  <div id="root" class="w-full"></div>
 
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // --- นำ URL Web App ของคุณมาใส่ตรงนี้ ---
     const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbytobmF1mXqlyvVrXxbZilcvQpYD4cNxTLAUMsbbO6Eq3PlD0GBqBQWRKrahCZC7umL/exec";
 
     const Icon = ({ name, size = 24, className = "" }) => {
@@ -140,6 +121,28 @@
       );
     };
 
+    const SkyBackground = () => {
+      const SparkleIcon = ({ color, size }) => (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L14.64 9.36L22 12L14.64 14.64L12 22L9.36 14.64L2 12L9.36 9.36L12 2Z" />
+        </svg>
+      );
+      const stars = Array.from({ length: 25 }).map((_, i) => {
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const size = 12 + Math.random() * 18;
+        const animDuration = 3 + Math.random() * 4;
+        const animDelay = Math.random() * 5;
+        const colors = ['#ffdf73', '#ffd1dc', '#ffffff'];
+        return (
+          <div key={`star-${i}`} className="star" style={{ left: `${left}vw`, top: `${top}vh`, animationDuration: `${animDuration}s`, animationDelay: `${animDelay}s` }}>
+            <SparkleIcon color={colors[i % colors.length]} size={size} />
+          </div>
+        );
+      });
+      return <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">{stars}</div>;
+    };
+
     const App = () => {
       const [view, setView] = useState('home'); 
       const [selectedCategory, setSelectedCategory] = useState(null);
@@ -157,12 +160,12 @@
       const ADMIN_PASSWORD = "1234";
 
       const categories = [
-        { id: 'profile', label: 'Profile', icon: 'User', color: 'border-blue-500/50 text-blue-400' },
-        { id: 'emote', label: 'Emote', icon: 'Sticker', color: 'border-blue-500/50 text-blue-400' },
-        { id: 'fb-sticker', label: 'FB Sticker', icon: 'Facebook', color: 'border-blue-500/50 text-blue-400' },
-        { id: 'chibi', label: 'Chibi', icon: 'Smile', color: 'border-blue-500/50 text-blue-400' },
-        { id: 'badges', label: 'Sub Badges', icon: 'Trophy', color: 'border-blue-500/50 text-blue-400' },
-        { id: 'etc', label: 'ETC.', icon: 'MoreHorizontal', color: 'border-blue-500/50 text-blue-400' },
+        { id: 'profile', label: 'Profile', icon: 'User' },
+        { id: 'emote', label: 'Emote', icon: 'Sticker' },
+        { id: 'fb-sticker', label: 'FB Sticker', icon: 'Facebook' },
+        { id: 'chibi', label: 'Chibi', icon: 'Smile' },
+        { id: 'badges', label: 'Sub Badges', icon: 'Trophy' },
+        { id: 'etc', label: 'ETC.', icon: 'MoreHorizontal' },
       ];
 
       const fetchWorksData = async () => {
@@ -204,13 +207,13 @@
         if (passwordInput === ADMIN_PASSWORD) {
           setIsAdmin(true); setView('home'); setPasswordInput('');
         } else {
-          alert("ACCESS DENIED");
+          alert("รหัสผ่านไม่ถูกต้อง!");
         }
       };
 
       const handleAddWork = async (e) => {
         e.preventDefault();
-        if (!file || !newWork.title) return alert("Missing Info");
+        if (!file || !newWork.title) return alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
         setIsUploading(true);
 
         const reader = new FileReader();
@@ -233,7 +236,7 @@
                 const res = await response.json();
                 
                 if(res.success) {
-                    alert("UPLOAD COMPLETE");
+                    alert("อัปโหลดเสร็จสิ้น 🎉");
                     fetchWorksData();
                     setShowAddModal(false); setFile(null); setNewWork({title:'', category:'chibi'});
                 } else {
@@ -241,7 +244,7 @@
                 }
             } catch (error) {
                 console.error("Upload error:", error);
-                alert("Upload failed. Check console.");
+                alert("อัปโหลดไม่สำเร็จ ลองใหม่อีกครั้ง");
             } finally {
                 setIsUploading(false);
             }
@@ -285,84 +288,62 @@
       }, [isLightBoxOpen, selectedImageIndex, currentDisplayWorks]);
 
       return (
-        // ตรงนี้คือการห่อหุ้มแอปทั้งหมดไว้ในกรอบมือถือ (max-w-[430px]) และจัดให้อยู่กึ่งกลางหน้าจอ (mx-auto)
-        <div className="mx-auto w-full max-w-[430px] min-h-screen bg-[#02040a] relative overflow-hidden pb-24 shadow-[0_0_50px_rgba(59,130,246,0.1)] sm:border-x sm:border-blue-900/30">
+        <div className="min-h-screen pb-32 max-w-md mx-auto relative pt-10 px-5 flex flex-col text-kosame-brown">
             
-            {/* --- BACKGROUND EFFECTS --- เปลี่ยนจาก fixed เป็น absolute เพื่อให้อยู่ในกรอบมือถือ */}
-            <div className="absolute inset-0 pointer-events-none z-0">
-               <div className="sticky top-0 w-full h-screen">
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-[#050b1a] to-[#02040a]"></div>
-                   <div className="absolute inset-0 bg-grid-animate"></div>
-                   <div className="particles"></div>
-                   <div className={`absolute top-[-20%] right-[-20%] w-[60%] h-[60%] blur-[120px] rounded-full opacity-40 transition-colors duration-700 bg-blue-600`}></div>
-               </div>
-            </div>
+            <SkyBackground />
+            <div className="h-6 w-full striped-header-footer fixed top-0 left-0 z-20 shadow-sm"></div>
 
-            <div className="relative z-10 w-full px-5 py-8">
+            <div className="relative z-10 w-full flex-grow">
                 
                 {/* LOGIN VIEW */}
                 {view === 'login' && (
-                    <div className="min-h-[60vh] flex flex-col items-center justify-center animate-fade-in">
-                        <div className="p-6 border border-blue-500/50 bg-blue-900/10 scifi-clip mb-8 text-blue-400">
-                          <Icon name="ShieldAlert" size={48}/>
-                        </div>
-                        <h2 className="text-3xl font-orbitron text-blue-400 mb-2">RESTRICTED</h2>
-                        <p className="text-[10px] tracking-[0.3em] text-slate-500 mb-8">AUTHENTICATION</p>
-                        
-                        <form onSubmit={handleLoginSubmit} className="w-full space-y-4">
-                            <div className="relative group">
-                              <input type="password" value={passwordInput} onChange={e=>setPasswordInput(e.target.value)} placeholder="PASSCODE" className="relative w-full bg-[#0a0f1a] border border-blue-500/30 text-blue-400 py-4 text-center tracking-[0.5em] focus:border-blue-500 outline-none scifi-clip font-orbitron" autoFocus />
-                            </div>
+                    <div className="min-h-[60vh] flex flex-col items-center justify-center animate-pop">
+                        <div className="kosame-card w-full max-w-xs p-8 text-center relative mt-8">
+                            <button onClick={handleBack} className="absolute top-4 right-4 text-kosame-brown hover:text-kosame-browndark bg-kosame-cream rounded-full p-1"><Icon name="X" size={16}/></button>
+                            <div className="w-16 h-16 bg-kosame-yellow rounded-full flex items-center justify-center text-white mb-4 mx-auto"><Icon name="Key" size={32} /></div>
+                            <h2 className="text-xl font-bold text-kosame-browndark mb-2">Admin Login</h2>
+                            <p className="text-xs text-kosame-brown mb-6">กรุณาใส่รหัสผ่านเพื่อจัดการ Gallery</p>
                             
-                            <div className="grid grid-cols-2 gap-3">
-                                <button type="button" onClick={handleBack} className="py-3 border border-slate-700 hover:bg-slate-800 scifi-clip text-xs font-bold tracking-widest transition">ABORT</button>
-                                <button type="submit" className="py-3 bg-blue-600/20 border border-blue-500 hover:bg-blue-600 hover:text-white text-blue-400 scifi-clip text-xs font-bold tracking-widest transition">UNLOCK</button>
-                            </div>
-                        </form>
+                            <form onSubmit={handleLoginSubmit} className="space-y-4">
+                                <input type="password" value={passwordInput} onChange={e=>setPasswordInput(e.target.value)} placeholder="รหัสผ่าน" className="w-full bg-kosame-bg border-2 border-kosame-cream rounded-xl py-3 text-center text-kosame-browndark tracking-[0.2em] focus:border-kosame-blue focus:outline-none" autoFocus />
+                                <button type="submit" className="w-full bg-kosame-blue hover:bg-kosame-bluedark text-white font-bold py-3 rounded-xl transition-all text-sm shadow-sm">เข้าสู่ระบบ</button>
+                            </form>
+                        </div>
                     </div>
                 )}
 
                 {/* HOME & CATEGORY VIEW */}
                 {(view === 'home' || view === 'category') && (
-                    <div className="animate-fade-in">
+                    <div className="animate-fade-in mt-4">
                         
                         {/* Header */}
-                        <header className="mb-10 relative">
-                            <div className="absolute -left-5 top-0 bottom-0 w-1 bg-blue-500 shadow-[0_0_10px_#3b82f6]"></div>
-                            <div className="pl-4">
-                                <div className="glitch-wrapper">
-                                  <h1 className="glitch" data-text="KOSAME">KOSAME</h1>
-                                </div>
-                                <div className="flex items-center gap-3 mt-1">
-                                  <div className="h-[2px] w-8 bg-blue-400 shadow-[0_0_5px_#60a5fa]"></div> 
-                                  <h2 className="text-xs tracking-[0.25em] text-blue-400 font-bold font-orbitron">PORTFOLIO</h2>
-                                </div>
+                        <header className="mb-8 flex flex-col items-center text-center">
+                            <div className="w-24 h-24 bg-white rounded-full border-4 border-kosame-blue overflow-hidden shadow-md mb-3">
+                                <img src="https://i.pinimg.com/736x/21/df/b6/21dfb607ea0ba0df850f83dd71752b02.jpg" className="w-full h-full object-cover" alt="Kosame" />
                             </div>
-                            {isAdmin && <div className="absolute top-0 right-0 text-[8px] text-blue-300 border border-blue-500/50 px-2 py-1 bg-blue-900/20 tracking-widest">ADMIN</div>}
+                            <h1 className="text-3xl font-bold text-kosame-browndark tracking-wide">Kosame</h1>
+                            <div className="mt-1 bg-kosame-cream px-4 py-1 rounded-full text-xs font-bold text-kosame-brown border border-white shadow-sm inline-flex items-center gap-1">
+                                PORTFOLIO ✧.*
+                                {isAdmin && <span className="ml-1 text-[9px] bg-kosame-yellow text-white px-1.5 py-0.5 rounded">ADMIN</span>}
+                            </div>
                         </header>
 
                         {/* Category Grid (Home) */}
                         {view === 'home' && (
-                            <section className="mb-10">
-                                <div className="flex items-center gap-2 mb-4 text-blue-400/80">
-                                    <Icon name="LayoutGrid" size={14}/>
-                                    <span className="text-[9px] font-bold tracking-[0.2em]">CATEGORIES</span>
-                                    <div className="h-[1px] flex-1 bg-blue-900/50 ml-2"></div>
+                            <section className="mb-8">
+                                <div className="flex items-center justify-center gap-2 mb-4">
+                                    <div className="h-[2px] w-12 bg-kosame-blue/50 rounded-full"></div>
+                                    <span className="text-xs font-bold text-kosame-blue uppercase tracking-widest px-2">Categories</span>
+                                    <div className="h-[2px] w-12 bg-kosame-blue/50 rounded-full"></div>
                                 </div>
                                 
                                 <div className="grid grid-cols-2 gap-3">
                                     {categories.map(cat => (
-                                        <button key={cat.id} onClick={()=>handleCategoryClick(cat)} className={`group relative h-20 scifi-clip bg-[#0d1525] border border-slate-800 hover:border-blue-400 transition-all duration-300 text-left overflow-hidden`}>
-                                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                                            <div className="absolute top-0 right-0 p-2">
-                                              <div className="w-1.5 h-1.5 bg-slate-800 group-hover:bg-blue-400 transition-colors"></div>
+                                        <button key={cat.id} onClick={()=>handleCategoryClick(cat)} className="group kosame-card flex items-center gap-3 p-3 hover:bg-kosame-yellow hover:border-kosame-yellow transition-colors hover:-translate-y-1">
+                                            <div className="bg-kosame-cream text-kosame-blue group-hover:bg-white group-hover:text-kosame-yellow p-2 rounded-xl transition-colors">
+                                                <Icon name={cat.icon} size={20}/>
                                             </div>
-                                            <div className="relative z-10 px-3 py-3 h-full flex flex-col justify-between">
-                                                <div className={`${cat.color} opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform origin-top-left`}>
-                                                  <Icon name={cat.icon} size={20}/>
-                                                </div>
-                                                <span className="font-orbitron font-bold text-[10px] tracking-widest text-slate-300 group-hover:text-blue-100">{cat.label}</span>
-                                            </div>
+                                            <span className="font-bold text-sm text-kosame-browndark group-hover:text-white transition-colors">{cat.label}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -371,45 +352,49 @@
 
                         {/* Category Title (Category View) */}
                         {view === 'category' && (
-                             <div className="mb-8 flex justify-between items-end border-b border-blue-900/30 pb-4">
+                            <div className="mb-6 flex justify-between items-center bg-white/80 backdrop-blur-sm p-4 rounded-2xl border-2 border-kosame-cream shadow-sm">
                                 <div>
-                                    <button onClick={handleBack} className="flex items-center gap-2 text-slate-500 hover:text-blue-400 mb-2 text-[10px] font-bold tracking-widest transition">
-                                      <Icon name="ArrowLeft" size={14}/> RETURN
-                                    </button>
-                                    <h2 className="text-2xl font-orbitron text-white uppercase drop-shadow-[0_0_5px_rgba(59,130,246,0.3)]">{selectedCategory?.label}</h2>
+                                    <h2 className="text-xl font-bold text-kosame-browndark flex items-center gap-2">
+                                        <div className="bg-kosame-yellow p-1.5 rounded-lg text-white">
+                                            <Icon name={selectedCategory?.icon} size={16}/>
+                                        </div>
+                                        {selectedCategory?.label}
+                                    </h2>
                                 </div>
-                                <div className="text-right">
-                                  <span className="text-xl font-bold font-orbitron text-blue-500 block leading-none">{currentDisplayWorks.length}</span>
-                                  <span className="text-[8px] text-slate-500 uppercase tracking-widest">Units</span>
+                                <div className="text-center bg-kosame-cream px-3 py-1 rounded-xl">
+                                    <span className="text-lg font-bold text-kosame-blue leading-none">{currentDisplayWorks.length}</span>
+                                    <span className="text-[10px] text-kosame-brown block font-bold">ผลงาน</span>
                                 </div>
-                             </div>
+                            </div>
                         )}
 
                         {/* Gallery Grid */}
                         <section>
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-[9px] font-bold tracking-[0.2em] text-blue-400/70">
-                                  {view === 'home' ? '/// RECENT' : '/// DATABASE'}
-                                </h3>
-                                <div className="w-12 h-[2px] bg-blue-900/50"></div>
+                            <div className="flex justify-center mb-4">
+                                 <span className="bg-kosame-yellow text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-sm">
+                                    {view === 'home' ? 'ผลงานล่าสุด' : `ผลงาน ${selectedCategory?.label}`}
+                                 </span>
                             </div>
 
                             {loading ? (
-                                <div className="py-16 flex flex-col items-center justify-center text-blue-500 gap-4">
-                                  <Icon name="Loader" className="animate-spin" size={28}/> 
-                                  <span className="text-[10px] tracking-widest animate-pulse">ACCESSING...</span>
+                                <div className="py-12 flex flex-col items-center justify-center gap-3">
+                                    <div className="w-8 h-8 border-4 border-kosame-blue border-t-kosame-yellow rounded-full animate-spin"></div>
+                                    <span className="text-xs font-bold text-kosame-brown">กำลังโหลดรูปภาพ...</span>
                                 </div>
                             ) : (
                                 <div className="grid grid-cols-3 gap-2">
                                     {currentDisplayWorks.length > 0 ? currentDisplayWorks.map((work, index) => (
-                                        <div key={work.id} onClick={()=>openLightBox(index)} className="group relative aspect-square bg-[#0d1525] border border-slate-800 cursor-pointer overflow-hidden hover:border-blue-400 transition duration-300">
-                                            <img src={work.img} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition duration-500" loading="lazy" />
-                                            <div className="absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm p-1 transform translate-y-full group-hover:translate-y-0 transition duration-300">
-                                                <span className="text-[7px] font-bold text-blue-400 truncate block text-center tracking-wider">{work.title}</span>
+                                        <div key={work.id} onClick={()=>openLightBox(index)} className="group relative aspect-square bg-white rounded-xl border-2 border-kosame-cream shadow-sm cursor-pointer overflow-hidden hover:border-kosame-blue transition duration-300">
+                                            <img src={work.img} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" loading="lazy" alt={work.title} />
+                                            {/* Hover overlay */}
+                                            <div className="absolute inset-0 bg-kosame-blue/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                                                <span className="text-[10px] font-bold text-white text-center px-1 drop-shadow-md truncate w-full">{work.title}</span>
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="col-span-3 text-center py-10 border border-slate-800 border-dashed text-slate-600 text-[10px] tracking-widest">NO DATA FOUND</div>
+                                        <div className="col-span-3 text-center py-12 bg-white/50 border-2 border-dashed border-kosame-cream rounded-2xl">
+                                            <p className="text-sm font-bold text-kosame-brown">ยังไม่มีผลงานในหมวดหมู่นี้จ้า 🎨</p>
+                                        </div>
                                     )}
                                 </div>
                             )}
@@ -418,29 +403,34 @@
                 )}
             </div>
 
-            {/* --- LIGHTBOX --- (ให้แสดงเต็มหน้าจอปกติ) */}
+            {/* --- LIGHTBOX --- */}
             {isLightBoxOpen && selectedImageIndex !== null && currentDisplayWorks[selectedImageIndex] && (
-                <div className="fixed inset-0 z-[100] bg-[#02040a]/95 backdrop-blur-sm flex flex-col items-center justify-center animate-fade-in" onClick={closeLightBox}>
-                    <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-start z-20 pointer-events-none">
-                        <div>
-                            <p className="text-[8px] text-blue-500 tracking-[0.2em] mb-1">SYSTEM /// VIEWING</p>
-                            <h3 className="text-lg font-orbitron text-white uppercase">{currentDisplayWorks[selectedImageIndex].title}</h3>
+                <div className="fixed inset-0 z-[100] bg-kosame-bg/95 backdrop-blur-sm flex flex-col items-center justify-center animate-fade-in" onClick={closeLightBox}>
+                    <div className="absolute top-0 w-full p-4 flex justify-between items-start z-20">
+                        <div className="bg-white/80 backdrop-blur px-4 py-2 rounded-2xl border-2 border-kosame-cream shadow-sm">
+                            <h3 className="text-sm font-bold text-kosame-browndark">{currentDisplayWorks[selectedImageIndex].title}</h3>
+                            <p className="text-[10px] text-kosame-blue font-bold">{categories.find(c => c.id === currentDisplayWorks[selectedImageIndex].category)?.label || 'Gallery'}</p>
                         </div>
-                        <button onClick={closeLightBox} className="pointer-events-auto p-2 border border-slate-700 hover:border-blue-500 hover:text-blue-500 text-slate-400 transition bg-black/50 scifi-clip">
+                        <button onClick={closeLightBox} className="p-2 bg-kosame-cream text-kosame-brown hover:bg-kosame-yellow hover:text-white rounded-full transition-colors shadow-sm border border-white">
                           <Icon name="X" size={20}/>
                         </button>
                     </div>
 
-                    <div className="relative w-full max-w-lg px-2 flex items-center justify-center group" onClick={e => e.stopPropagation()}>
-                        <div className="relative border border-blue-500/20 p-1 bg-blue-900/5">
-                            <img src={currentDisplayWorks[selectedImageIndex].img} className="max-w-full max-h-[70vh] object-contain shadow-[0_0_30px_rgba(59,130,246,0.1)]" />
+                    <div className="relative w-full flex items-center justify-center h-full px-4" onClick={e => e.stopPropagation()}>
+                        {/* Navigation Arrows */}
+                        <button onClick={prevImage} className="absolute left-2 z-30 p-2 bg-white/80 text-kosame-blue rounded-full shadow-md hover:text-kosame-yellow"><Icon name="ChevronLeft" size={24}/></button>
+                        
+                        <div className="relative kosame-card p-2 bg-white max-w-full">
+                            <img src={currentDisplayWorks[selectedImageIndex].img} className="max-w-full max-h-[70vh] object-contain rounded-xl" alt="Artwork" />
                         </div>
+                        
+                        <button onClick={nextImage} className="absolute right-2 z-30 p-2 bg-white/80 text-kosame-blue rounded-full shadow-md hover:text-kosame-yellow"><Icon name="ChevronRight" size={24}/></button>
                     </div>
                     
-                    {/* จุดนำทางสำหรับมือถือ */}
-                    <div className="absolute bottom-10 w-full px-8 flex gap-1 justify-center pointer-events-none flex-wrap">
+                    {/* Dots indicator */}
+                    <div className="absolute bottom-8 w-full px-8 flex gap-1.5 justify-center pointer-events-none flex-wrap">
                         {currentDisplayWorks.map((_, i) => (
-                            <div key={i} className={`h-1 rounded-sm transition-all duration-300 ${i === selectedImageIndex ? 'w-6 bg-blue-500' : 'w-2 bg-slate-800'}`}></div>
+                            <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === selectedImageIndex ? 'w-6 bg-kosame-yellow' : 'w-1.5 bg-kosame-blue/30'}`}></div>
                         ))}
                     </div>
                 </div>
@@ -448,55 +438,62 @@
 
             {/* --- UPLOAD MODAL (ADMIN) --- */}
             {showAddModal && (
-                <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-                    <div className="bg-[#0a0f1a] border border-blue-500/30 w-full max-w-sm scifi-clip shadow-[0_0_50px_rgba(59,130,246,0.1)] animate-fade-in relative">
-                        <div className="h-1 w-full bg-gradient-to-r from-blue-600 to-transparent"></div>
-                        <div className="p-4 flex justify-between items-center">
-                            <h4 className="text-[11px] font-orbitron tracking-widest text-blue-400">UPLOAD_INTERFACE</h4>
-                            <button onClick={()=>setShowAddModal(false)} className="text-slate-500 hover:text-white"><Icon name="X" size={16}/></button>
+                <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+                    <div className="bg-white w-full max-w-sm kosame-card animate-slide-up relative">
+                        <button onClick={()=>setShowAddModal(false)} className="absolute top-4 right-4 text-kosame-brown bg-kosame-cream rounded-full p-1 hover:bg-kosame-yellow hover:text-white transition-colors"><Icon name="X" size={16}/></button>
+                        <div className="p-5 border-b-2 border-kosame-cream">
+                            <h4 className="text-lg font-bold text-kosame-browndark flex items-center gap-2">
+                                <div className="bg-kosame-blue p-1.5 rounded-lg text-white"><Icon name="Upload" size={18}/></div>
+                                เพิ่มผลงานใหม่
+                            </h4>
                         </div>
-                        <form onSubmit={handleAddWork} className="p-5 pt-0 space-y-4">
+                        <form onSubmit={handleAddWork} className="p-5 space-y-4">
                             <div>
-                                <label className="text-[8px] text-slate-500 tracking-widest block mb-1">FILE TITLE</label>
-                                <input type="text" value={newWork.title} onChange={e=>setNewWork({...newWork, title: e.target.value})} className="w-full bg-[#05080f] border border-slate-700 focus:border-blue-500 rounded-none p-3 text-xs text-white outline-none"/>
+                                <label className="text-xs font-bold text-kosame-browndark block mb-1.5">ชื่อผลงาน (Title)</label>
+                                <input type="text" value={newWork.title} onChange={e=>setNewWork({...newWork, title: e.target.value})} className="w-full bg-kosame-bg border-2 border-kosame-cream focus:border-kosame-blue rounded-xl p-3 text-sm text-kosame-browndark outline-none" placeholder="เช่น น้องแมว Chibi"/>
                             </div>
                             <div>
-                                <label className="text-[8px] text-slate-500 tracking-widest block mb-1">CATEGORY CLASS</label>
-                                <select value={newWork.category} onChange={e=>setNewWork({...newWork, category: e.target.value})} className="w-full bg-[#05080f] border border-slate-700 focus:border-blue-500 rounded-none p-3 text-xs text-white outline-none">
+                                <label className="text-xs font-bold text-kosame-browndark block mb-1.5">หมวดหมู่ (Category)</label>
+                                <select value={newWork.category} onChange={e=>setNewWork({...newWork, category: e.target.value})} className="w-full bg-kosame-bg border-2 border-kosame-cream focus:border-kosame-blue rounded-xl p-3 text-sm text-kosame-browndark outline-none appearance-none">
                                     {categories.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                                 </select>
                             </div>
-                            <div className="border border-dashed border-slate-700 p-4 hover:border-blue-500 transition cursor-pointer relative">
+                            <div className="border-2 border-dashed border-kosame-blue bg-kosame-bg/50 rounded-xl p-6 hover:bg-kosame-blue/5 transition cursor-pointer relative text-center">
                                 <input type="file" onChange={e=>setFile(e.target.files[0])} accept="image/*" className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"/>
-                                <div className="text-center">
-                                    <Icon name="Upload" size={20} className="mx-auto text-slate-500 mb-2"/>
-                                    <p className="text-[9px] text-blue-500 tracking-widest truncate px-2">{file ? file.name : "SELECT OR DROP FILE"}</p>
+                                <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center mx-auto text-kosame-blue mb-2 shadow-sm">
+                                    <Icon name="ImageIcon" size={24}/>
                                 </div>
+                                <p className="text-xs font-bold text-kosame-browndark">{file ? file.name : "คลิกเพื่อเลือก หรือลากไฟล์มาวาง"}</p>
+                                <p className="text-[10px] text-kosame-brown mt-1">รองรับ JPG, PNG</p>
                             </div>
-                            <button type="submit" disabled={isUploading} className="w-full py-3 bg-blue-600/20 border border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white font-bold text-[10px] tracking-[0.2em] transition disabled:opacity-50">
-                                {isUploading ? "TRANSMITTING..." : "INITIATE UPLOAD"}
+                            <button type="submit" disabled={isUploading} className="w-full py-3 bg-kosame-yellow hover:bg-[#ebd453] text-white font-bold text-sm rounded-xl transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2">
+                                {isUploading ? <><Icon name="Loader" className="animate-spin" size={16}/> กำลังอัปโหลด...</> : "อัปโหลดรูปภาพ"}
                             </button>
                         </form>
                     </div>
                 </div>
             )}
 
-            {/* FOOTER NAV - ผูกติดกับกรอบมือถือ (max-w-[430px]) และจัดให้อยู่ตรงกลางด้วย left-1/2 -translate-x-1/2 */}
-            <footer className="fixed bottom-0 w-full max-w-[430px] p-4 z-50 pointer-events-none left-1/2 -translate-x-1/2">
-                <div className="w-full bg-[#0a0f1a]/90 backdrop-blur border-t border-blue-500/30 px-8 py-3 scifi-clip flex justify-between items-center shadow-2xl pointer-events-auto relative">
-                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-                    <button onClick={handleBack} className={`flex flex-col items-center gap-1 group ${view==='home'?'text-blue-400':'text-slate-600'}`}>
-                        <div className={`w-1 h-1 rounded-full ${view==='home'?'bg-blue-400 shadow-[0_0_5px_#60a5fa]':'bg-slate-700'}`}></div>
-                        <span className="text-[8px] font-bold tracking-widest group-hover:text-blue-300">HOME</span>
+            {/* FOOTER NAV */}
+            <div className="h-6 w-full striped-header-footer fixed bottom-0 left-0 z-20 border-t-4 border-kosame-cream border-b-0 shadow-[0_-2px_4px_rgba(0,0,0,0.02)]"></div>
+            
+            <footer className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-xl border-2 border-kosame-blue shadow-[0_4px_0_0_#cceaff] rounded-full px-6 py-2 flex items-center justify-around w-[85%] max-w-[320px] z-40">
+                 <button onClick={() => window.location.href = 'index.html'} className={`flex flex-col items-center gap-1 transition-all text-kosame-brown hover:text-kosame-yellow`}>
+                    <div className={`p-2 rounded-full transition-all`}><Icon name="ArrowLeft" size={22} /></div>
+                 </button>
+                 <button onClick={handleBack} className={`flex flex-col items-center gap-1 transition-all ${view === 'home' ? 'text-kosame-yellow scale-110' : 'text-kosame-brown hover:text-kosame-yellow'}`}>
+                    <div className={`${view === 'home' ? 'bg-kosame-cream p-2' : 'p-2'} rounded-full transition-all`}><Icon name="LayoutGrid" size={22} /></div>
+                 </button>
+                 
+                 {isAdmin && (
+                    <button onClick={()=>setShowAddModal(true)} className="transform -translate-y-4 bg-kosame-yellow text-white p-3 rounded-full border-4 border-white shadow-md hover:scale-105 transition-transform">
+                        <Icon name="Plus" size={20}/>
                     </button>
-                    <button onClick={()=>isAdmin && setShowAddModal(true)} disabled={!isAdmin} className={`transform -translate-y-5 bg-[#02040a] text-blue-400 p-2.5 rounded-lg border border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.3)] ${!isAdmin && 'grayscale opacity-20 border-slate-700'}`}>
-                        <Icon name="Plus" size={24}/>
-                    </button>
-                    <button onClick={()=>isAdmin ? setIsAdmin(false) : setView('login')} className={`flex flex-col items-center gap-1 group ${isAdmin?'text-blue-400':'text-slate-600'}`}>
-                        <Icon name={isAdmin ? "Unlock" : "Lock"} size={12} className="mt-1"/>
-                        <span className="text-[8px] font-bold tracking-widest group-hover:text-blue-300">ADMIN</span>
-                    </button>
-                </div>
+                 )}
+
+                 <button onClick={()=>isAdmin ? setIsAdmin(false) : setView('login')} className={`flex flex-col items-center gap-1 transition-all ${isAdmin ? 'text-kosame-yellow scale-110' : 'text-kosame-brown hover:text-kosame-yellow'}`}>
+                    <div className={`${isAdmin ? 'bg-kosame-cream p-2' : 'p-2'} rounded-full transition-all`}><Icon name={isAdmin ? "Unlock" : "Lock"} size={22} /></div>
+                 </button>
             </footer>
 
         </div>
@@ -507,6 +504,4 @@
     root.render(<App />);
   </script>
 </body>
-
 </html>
-
