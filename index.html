@@ -10,7 +10,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link href="https://script.google.com/macros/s/AKfycby3awK2tHJQ6diwRV3kXeJmlfN_I1t1cA1o7GZPBvaiZRFt0mJCKJff8SijEHK9DP8/exec">
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -90,7 +90,7 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby-rzfGH6j9ZCTtJGfhlboZLQAZ8D25RKDDBUPdh42mG-c9W-2j65WkW0sKZuMHHUFv/exec";
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbytobmF1mXqlyvVrXxbZilcvQpYD4cNxTLAUMsbbO6Eq3PlD0GBqBQWRKrahCZC7umL/exec";
 
     const Icon = ({ name, size = 24, className = "" }) => {
       const icons = {
@@ -230,6 +230,7 @@
             try {
                 const response = await fetch(GAS_WEB_APP_URL, {
                     method: "POST",
+                    redirect: "follow",
                     body: JSON.stringify(payload)
                 });
                 
@@ -526,6 +527,13 @@
     e.preventDefault();
   });
 
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) { e.preventDefault(); return false; }
+    if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return false; }
+    if (e.ctrlKey && (e.key === 'S' || e.key === 's')) { e.preventDefault(); return false; }
+  });
 </script>
 </body>
 </html>
